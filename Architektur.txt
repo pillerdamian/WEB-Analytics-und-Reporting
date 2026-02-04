@@ -1,0 +1,11 @@
+Raw Data
+  ↓
+Ingestion
+  ↓
+Cleaning & Transformation
+  ↓
+SQLite (Single Source of Truth)
+  ↓
+KPI Calculation
+  ↓
+Exports (CSV / JSON / HTML)
