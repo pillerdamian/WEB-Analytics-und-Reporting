@@ -17,7 +17,7 @@ Der Fokus liegt auf:
 
 ✅ Aktuell werden **ausschließlich CSV-Dateien (`.csv`)** unterstützt.
 
-Die CSV-Datei muss mindestens folgende Spalten enthalten:
+Die CSV-Datei muss inhaltlich folgende Informationen enthalten (Spaltennamen können gemappt werden, siehe unten):
 
 - `date` – Datum
 - `customer_id` – Kunden-ID
@@ -28,17 +28,24 @@ Andere Formate (z. B. Excel `.xlsx`) sind **bewusst nicht aktiviert**, um die Pi
 
 ---
 
-## 🧠 Architektur-Überblick
+## 🔎 Spalten-Mapping & Validierung
 
-Die Anwendung ist in klar getrennte Schichten aufgebaut:
+### ✅ Spalten-Mapping
 
-```text
-Ingestion (CSV Import)
-   ↓
-Transformation (Datenbereinigung & Normalisierung)
-   ↓
-Persistence (SQLite als lokale Datenbank)
-   ↓
-Analytics (KPI-Berechnung)
-   ↓
-Reporting (HTML-Report)
+Die Pipeline unterstützt automatisch alternative Spaltennamen, z. B.:
+
+- `Datum` → `date`
+- `Kunde`, `Kunden_ID` → `customer_id`
+- `Umsatz`, `Sales` → `revenue`
+- `Gekauft`, `Conversion` → `converted`
+
+Zusätzliche Spalten in der CSV sind **kein Problem** und werden einfach ignoriert, solange die benötigten Pflichtspalten vorhanden sind.
+
+---
+
+### ❌ Pflichtspalten-Prüfung
+
+Vor der Verarbeitung wird geprüft, ob alle notwendigen Spalten vorhanden sind.  
+Fehlen eine oder mehrere Pflichtspalten, bricht die Pipeline mit einer **klaren Fehlermeldung** ab.
+
+#Readme is written by ChatGPT
